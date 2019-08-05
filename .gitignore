@@ -1,0 +1,7 @@
+/overlay/**
+
+.directory
+.env
+
+!.gitkeep
+!*/
