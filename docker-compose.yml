@@ -10,9 +10,16 @@ services:
       REGISTRY_PROXY_REMOTEURL: "https://registry-1.docker.io"
     hostname: "${HOST_NAME}"
     image: registry:2
-    ports:
-      - "${HOST_IP}:5000:5000"
+    labels:
+      traefik.domain: "${HOST_NAME}.${DOMAIN_NAME}"
+      traefik.frontend.rule: "Host: docker-registry-cache.${HOST_NAME}.${DOMAIN_NAME}"
+      traefik.port: "5000"
     restart: always
     volumes:
       - "./overlay/certs/:/certs/"
       - "./overlay/var/lib/registry/:/var/lib/registry/"
+
+networks:
+  default:
+    external:
+      name: "webhost"

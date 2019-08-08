@@ -5,7 +5,7 @@
 
 ```json
   {
-    "registry-mirrors": ["https://hostname.domainname:5000"]
+    "registry-mirrors": ["https://docker-registry-cache.hostname.domainname"]
   }
 ```
 
