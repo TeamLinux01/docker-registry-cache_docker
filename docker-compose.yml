@@ -5,8 +5,6 @@ services:
     domainname: "${DOMAIN_NAME}"
     environment:
       MIRROR_SOURCE_INDEX: "https://index.docker.io"
-      REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/${HOST_NAME}.${DOMAIN_NAME}.crt"
-      REGISTRY_HTTP_TLS_KEY: "/certs/${HOST_NAME}.${DOMAIN_NAME}.key"
       REGISTRY_PROXY_REMOTEURL: "https://registry-1.docker.io"
     hostname: "${HOST_NAME}"
     image: registry:2
@@ -16,10 +14,12 @@ services:
       traefik.port: "5000"
     restart: always
     volumes:
-      - "./overlay/certs/:/certs/"
-      - "./overlay/var/lib/registry/:/var/lib/registry/"
+      - "registry:/var/lib/registry"
 
 networks:
   default:
     external:
       name: "webhost"
+
+volumes:
+  registry:
